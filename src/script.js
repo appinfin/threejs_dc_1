@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 
-// Debug
+// Debug исправил!!!
 const gui = new dat.GUI()
 
 // Canvas
@@ -13,13 +13,13 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Objects
-// const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
-const geometry = new THREE.SphereBufferGeometry(0.5, 64, 64);
+const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
+// const geometry = new THREE.SphereBufferGeometry(0.5, 64, 64);
 
 // Materials
 
-// const material = new THREE.MeshBasicMaterial();
-const material = new THREE.MeshStamdardMaterial();
+const material = new THREE.MeshBasicMaterial()
+// const material = new THREE.MeshStamdardMaterial();
 material.color = new THREE.Color(0xff0000)
 
 // Mesh
