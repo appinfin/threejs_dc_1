@@ -3,7 +3,11 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 
-// Debug исправил!!!
+//Loading
+const textureLoader = new THREE.TextureLoader();
+const normalTexture = textureLoader.load('/textures/normal_map.jpg');
+
+// Debug
 const gui = new dat.GUI()
 
 // Canvas
@@ -13,14 +17,18 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 // Objects
-const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
-// const geometry = new THREE.SphereBufferGeometry(0.5, 64, 64);
+// const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
+const geometry = new THREE.SphereBufferGeometry(0.5, 64, 64);
 
 // Materials
 
-const material = new THREE.MeshBasicMaterial()
-// const material = new THREE.MeshStamdardMaterial();
-material.color = new THREE.Color(0xff0000)
+// const material = new THREE.MeshBasicMaterial()
+const material = new THREE.MeshStandardMaterial();
+material.metalness = 0.7;
+material.roughness = 0.2;
+material.normalMap = normalTexture;
+
+material.color = new THREE.Color(0x292929)
 
 // Mesh
 const sphere = new THREE.Mesh(geometry,material)
@@ -75,7 +83,8 @@ scene.add(camera)
  * Renderer
  */
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+    canvas: canvas, //холст
+    alpha: true //прозрачный
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
