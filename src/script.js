@@ -44,10 +44,7 @@ scene.add(pointLight)
 
 // Lights 2
 const pointLight2 = new THREE.PointLight(0xff0000, 2)
-// pointLight2.position.x = 2
-// pointLight2.position.y = 3
-// pointLight2.position.z = 4
-pointLight2.position.set(0.5,1,0)
+pointLight2.position.set(-1.86,1,-1.65)
 pointLight2.intensity = 10
 scene.add(pointLight2)
 
@@ -61,12 +58,12 @@ scene.add(pointLight2)
 // // scene.add(pointLightHelper)
 
 // Lights 3
-const pointLight3 = new THREE.PointLight(0xcecece, 2)
+const pointLight3 = new THREE.PointLight(0xe1ff, 2)
 // pointLight2.position.x = 2
 // pointLight2.position.y = 3
 // pointLight2.position.z = 4
-pointLight3.position.set(-1,-1,-1)
-pointLight3.intensity = 5
+pointLight3.position.set(2.13,-3,-1.98)
+pointLight3.intensity = 6.8
 scene.add(pointLight3)
 
 // const light2 = gui.addFolder('light2')
@@ -84,8 +81,8 @@ scene.add(pointLight3)
 //         pointLight3.color.set(light2Color.color)
 //     })
 
-// // const pointLightHelper2 = new THREE.PointLightHelper(pointLight3, 1)
-// // scene.add(pointLightHelper2)
+// const pointLightHelper2 = new THREE.PointLightHelper(pointLight3, 1)
+// scene.add(pointLightHelper2)
 
 
 /**
@@ -122,8 +119,8 @@ camera.position.z = 2
 scene.add(camera)
 
 // Controls
-// const controls = new OrbitControls(camera, canvas)
-// controls.enableDamping = true
+const controls = new OrbitControls(camera, canvas)
+controls.enableDamping = true
 
 /**
  * Renderer
@@ -150,10 +147,18 @@ let targetY = 0;
 const windowX = window.innerWidth / 2;
 const windowY = window.innerHeight / 2;
 
-function onDocumentMouseMove(event) {
+function onDocumentMouseMove(event)
+// const onDocumentMouseMove = (event) => 
+{
     mouseX = (event.clientX - windowX)
     mouseY = (event.clientY - windowY)
 };
+// document.addEventListener('mousemove', onDocumentMouseMove) 
+
+const updateSphere = (event) => {
+    sphere.position.y = window.scrollY * .001
+}
+window.addEventListener('scroll', updateSphere)
 
 const clock = new THREE.Clock()
 
@@ -165,13 +170,14 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
-    // sphere.rotation.y = .5 * elapsedTime
+    sphere.rotation.y = .5 * elapsedTime
     sphere.rotation.y += .5 * (targetX - sphere.rotation.y)
-    sphere.rotation.x += .5 * (targetY - sphere.rotation.x)
-    sphere.rotation.z += .5 * (targetY - sphere.rotation.x)
+    sphere.rotation.x += .05 * (targetY - sphere.rotation.x)
+    // sphere.rotation.z += .05 * (targetY - sphere.rotation.x)
+    sphere.position.z += .05 * (targetY - sphere.rotation.x)
 
     // Update Orbital Controls
-    // controls.update()
+    controls.update()
 
     // Render
     renderer.render(scene, camera)
